@@ -1,7 +1,7 @@
-from src.hbovespa_parser import HBovespaParser
-
-import unittest
 import json
+import unittest
+
+from src.util.hbovespa_parser import HBovespaParser
 
 
 class TestHBovespaParser(unittest.TestCase):

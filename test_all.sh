@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-nosetests 
+#Script para realizar todos os testes
+
+nosetests tests/*

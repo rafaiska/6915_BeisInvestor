@@ -99,3 +99,10 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# arquivos do pycharm
+.idea
+
+# arquivos de texto das cotacoes
+data/*.json
+data/*.txt
