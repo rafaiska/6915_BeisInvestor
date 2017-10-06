@@ -14,7 +14,7 @@ class HBovespaParser(object):
         print('DECOMPRESSING FILE: %s...' % (self.gzpath))
         # TODO: descompactar o arquivo
         fileGz = gzip.open(self.gzpath, 'rb')
-        fileContent = open('data/cotacões.txt', 'wb')
+        fileContent = open('data/cotacoes.txt', 'wb')
         fileContent.write(fileGz.read())
         fileGz.close()
         fileContent.close()
@@ -66,7 +66,7 @@ class HBovespaParser(object):
         return name
 
     def getClosingValue(self, line):
-        '''Returns the closing value from a line (starts at pos 136, ends at pos 149)'''
+        '''Returns the closing value from a line (starts at pos 136, ends at pos 145)'''
         value = ""
         index = 136
         while line[index] == "0":
@@ -80,4 +80,24 @@ class HBovespaParser(object):
             index = index + 1
         value = value + ',' + line[146] + line[147]
         return value
+
+
+    '''Usage:
+        intervalInDays = 30
+        dataToPlot = parser.getGraphDataByCompany("TIM", intervalInDays)
+    '''
+    def getGraphDataByCompany(self, companyName, interval):
+        '''Gets data from json file by company name. Interval format is number of days.'''
+        jsonData = open("data/cotacoes.json", 'r')
+        data = json.load(jsonData)
+        index = 0
+        graphData = []
+        if data[index]['Empresa'] != companyName:
+            index = index + 1
+
+        while data[index]['Empresa'] == companyName:
+            graphData.append(data[index])
+            index = index + interval
+
+        return graphData
 
