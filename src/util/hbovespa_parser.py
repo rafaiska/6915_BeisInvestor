@@ -36,7 +36,7 @@ class HBovespaParser(object):
                 'Valor': value,
             })
 
-        json.dump(listaBovespa, cotacoes, )
+        json.dump(listaBovespa, cotacoes, indent=4)
         cotacoes.close()
         print('OUTPUT FILE WRITTEN TO %s' % (self.outputfile))
 
