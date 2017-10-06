@@ -73,7 +73,7 @@ class HBovespaParser(object):
             index = index + 1
             # Case of missing values from BOVESPA data
             if (index == 145):
-                return "0,00"
+                return None
 
         while index != 145:
             value = value + line[index]
