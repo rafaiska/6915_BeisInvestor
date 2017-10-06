@@ -66,18 +66,18 @@ class HBovespaParser(object):
         return name
 
     def getClosingValue(self, line):
-        '''Returns the closing value from a line, format is xx,xx (starts at pos 136, ends at pos 149)'''
+        '''Returns the closing value from a line (starts at pos 136, ends at pos 149)'''
         value = ""
         index = 136
         while line[index] == "0":
             index = index + 1
             # Case of missing values from BOVESPA data
-            if (index == 149):
-                return "00,00"
+            if (index == 145):
+                return "0,00"
 
-        while index != 147:
+        while index != 145:
             value = value + line[index]
             index = index + 1
-        value = value + ',' + line[148] + line[149]
+        value = value + ',' + line[146] + line[147]
         return value
 
