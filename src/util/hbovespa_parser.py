@@ -66,7 +66,7 @@ class HBovespaParser(object):
         return name
 
     def getClosingValue(self, line):
-        '''Returns the closing value from a line (starts at pos 136, ends at pos 149)'''
+        '''Returns the closing value from a line (starts at pos 136, ends at pos 145)'''
         value = ""
         index = 136
         while line[index] == "0":
@@ -80,4 +80,25 @@ class HBovespaParser(object):
             index = index + 1
         value = value + '.' + line[146] + line[147]
         return float(value)
+
+
+    '''Usage:
+        intervalInDays = 30
+        dataToPlot = parser.getGraphDataByCompany("TIM", intervalInDays)
+    '''
+    def getGraphDataByCompany(self, companyName, interval):
+        '''Gets data from json file by company name. Interval format is number of days.'''
+        jsonFile = open("data/cotacoes.json", 'r')
+        data = json.load(jsonFile)
+        index = 0
+        graphData = []
+        while data[index]['Empresa'] != companyName:
+            index = index + 1
+
+        while data[index]['Empresa'] == companyName:
+            graphData.append(data[index])
+            index = index + interval
+
+        jsonFile.close()
+        return graphData
 
