@@ -14,13 +14,13 @@ class HBovespaParser(object):
         print('DECOMPRESSING FILE: %s...' % (self.gzpath))
         # TODO: descompactar o arquivo
         fileGz = gzip.open(self.gzpath, 'rb')
-        fileContent = open('data/cotacões.txt', 'wb')
+        fileContent = open('data/cotacoes.txt', 'wb')
         fileContent.write(fileGz.read())
         fileGz.close()
         fileContent.close()
         fileContent = open('data/cotacoes.txt', 'r')
 
-        cotacoes = open("data/cotacoes.json", 'w')
+        cotacoes = open(self.outputfile, 'w')
         listaBovespa = []
 
         print ('PARSING FILE TO JSON...')
@@ -29,14 +29,14 @@ class HBovespaParser(object):
             name = self.getCompanyName(line)
             value = self.getClosingValue(line)
 
-            print (date, name, value)
+            # print (date, name, value)
             listaBovespa.append({
                 'Empresa': name,
                 'Data': date,
                 'Valor': value,
             })
 
-        json.dump(listaBovespa, cotacoes)
+        json.dump(listaBovespa, cotacoes, )
         cotacoes.close()
         print('OUTPUT FILE WRITTEN TO %s' % (self.outputfile))
 
@@ -78,6 +78,6 @@ class HBovespaParser(object):
         while index != 145:
             value = value + line[index]
             index = index + 1
-        value = value + ',' + line[146] + line[147]
-        return value
+        value = value + '.' + line[146] + line[147]
+        return float(value)
 

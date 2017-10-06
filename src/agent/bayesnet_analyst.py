@@ -1,4 +1,8 @@
 import datetime
+import json
+from operator import itemgetter
+
+import src.agent.bayesnet_constructor as constructor
 
 class BayesAnalyst(object):
     def __init__(self):
@@ -10,7 +14,18 @@ class BayesAnalyst(object):
 
         print('BEGINNING ANALYSIS AT %s...' % (datetime.datetime.now().strftime('%d/%m/%Y, %H:%M:%S')))
 
-        # TODO: Fazer analise dos dados em json
+        try:
+            with open(filename, 'r') as fpointer:
+                datajson = json.load(fpointer)
+                fpointer.close()
+        except IOError:
+            print('ERROR: CANNOT LOAD PARSED JSON')
+            return None
+        except ValueError:
+            print('ERROR: BAD FORMAT FOR DATA JSON')
+            return None
+
+        constructor.generate_bayesnet(sorted(datajson, key=itemgetter('Data')))
 
         print('ANALYSIS COMPLETED')
         elapsed_time = datetime.datetime.now() - starttime
