@@ -18,33 +18,25 @@ class HBovespaParser(object):
         fileContent.write(fileGz.read())
         fileGz.close()
         fileContent.close()
-        fileContent = open('data/cotacões.txt', 'r')
+        fileContent = open('data/cotacoes.txt', 'r')
 
-        cotacoes = open("data/cotacoesOrganizadas.json", 'w')
-        listBovespa = [{}]
+        cotacoes = open("data/cotacoes.json", 'w')
+        listaBovespa = []
 
-        for phraseLine in iter(fileContent):
-            flagAux = 0
-            date = ""
-            companyName = ""
-            valor = ""
-            for char in range(2, 230):
-                if(char == 5 or char == 7):
-                    date = date + phraseLine[char] + "/"
-                elif(char <= 9 and (char != 5 or char !=7)):
-                    date = date + phraseLine[char]
-                elif(27 <= char <= 35):
-                    if(phraseLine[char] == " " or flagAux == 1):
-                        if(flagAux == 0):
-                            flagAux = 1
-                        continue
-                    companyName = companyName + phraseLine[char]
-                elif(56 <= char <= 230):
-                    valor = valor + phraseLine[char]
-            listBovespa.append({'Empresa': companyName, 'Data': date, 'Valor': valor})
-        print(listBovespa)
-        print('PARSING FILE INTO JSON...')
-        json.dump(listBovespa, cotacoes)
+        print ('PARSING FILE TO JSON...')
+        for line in iter(fileContent):
+            date = self.getDate(line)
+            name = self.getCompanyName(line)
+            value = self.getClosingValue(line)
+
+            print (date, name, value)
+            listaBovespa.append({
+                'Empresa': name,
+                'Data': date,
+                'Valor': value,
+            })
+
+        json.dump(listaBovespa, cotacoes)
         cotacoes.close()
         print('OUTPUT FILE WRITTEN TO %s' % (self.outputfile))
 
@@ -54,3 +46,38 @@ class HBovespaParser(object):
             return True
         else:
             return False
+
+    def getDate(self, line):
+        '''Returns the date from a line (starts at pos 2, ends at pos 9)'''
+        year = line[2] + line[3] + line[4] + line[5]
+        month = line[6] + line[7]
+        day = line[8] + line[9]
+
+        date = day + '/' + month + '/' + year
+        return date
+
+    def getCompanyName(self, line):
+        '''Returns the company name from a line (starts at pos 27, ends when whitespace is found)'''
+        name = ""
+        index = 27
+        while not line[index].isspace():
+            name = name + line[index]
+            index = index + 1
+        return name
+
+    def getClosingValue(self, line):
+        '''Returns the closing value from a line, format is xx,xx (starts at pos 136, ends at pos 149)'''
+        value = ""
+        index = 136
+        while line[index] == "0":
+            index = index + 1
+            # Case of missing values from BOVESPA data
+            if (index == 149):
+                return "00,00"
+
+        while index != 147:
+            value = value + line[index]
+            index = index + 1
+        value = value + ',' + line[148] + line[149]
+        return value
+
