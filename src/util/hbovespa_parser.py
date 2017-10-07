@@ -53,7 +53,7 @@ class HBovespaParser(object):
         month = line[6] + line[7]
         day = line[8] + line[9]
 
-        date = day + '/' + month + '/' + year
+        date = year + month + day 
         return date
 
     def getCompanyName(self, line):
@@ -66,19 +66,20 @@ class HBovespaParser(object):
         return name
 
     def getClosingValue(self, line):
-        '''Returns the closing value from a line (starts at pos 136, ends at pos 145)'''
+        '''Returns the closing value from a line (starts at pos 57, ends at pos 70)'''
         value = ""
-        index = 136
-        while line[index] == "0":
-            index = index + 1
+        startIndex = 57
+        endIndex = 70
+        while line[startIndex] == "0":
+            startIndex = startIndex + 1
             # Case of missing values from BOVESPA data
-            if (index == 145):
+            if (startIndex == endIndex):
                 return None
 
-        while index != 145:
-            value = value + line[index]
-            index = index + 1
-        value = value + '.' + line[146] + line[147]
+        while startIndex != endIndex - 2:
+            value = value + line[startIndex]
+            startIndex = startIndex + 1
+        value = value + '.' + line[startIndex + 1] + line[startIndex + 2]
         return float(value)
 
 
