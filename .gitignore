@@ -106,3 +106,4 @@ ENV/
 # arquivos de texto das cotacoes
 data/*.json
 data/*.txt
+data/*.TXT

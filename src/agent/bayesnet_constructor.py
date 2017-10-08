@@ -1,13 +1,14 @@
 from queue import Queue
 from queue import Empty
 
-
 STOCK_PRICE_VAR = 2.0
+
 
 def fetch_companies_names(hist_json):
     names = set()
     for entry in hist_json:
         names.add(entry['Empresa'])
+    names = sorted(names)
     print('STOCKS FOUND:', names)
     return names
 
@@ -35,12 +36,12 @@ def get_variation(today, previous, companies):
             percentual_variation = (today[company_name] - previous[company_name]) / previous[company_name]
             percentual_variation *= 100.0
 
-        if percentual_variation > STOCK_PRICE_VAR:
-            variation[company_name] = 'u'
-        elif percentual_variation < - STOCK_PRICE_VAR:
-            variation[company_name] = 'd'
-        else:
-            variation[company_name] = 's'
+            if percentual_variation > STOCK_PRICE_VAR:
+                variation[company_name] = 'u'
+            elif percentual_variation < - STOCK_PRICE_VAR:
+                variation[company_name] = 'd'
+            else:
+                variation[company_name] = 's'
 
     return variation
 
@@ -145,4 +146,4 @@ def generate_bayesnet(hist_json):
     pattern_map = generate_patternmap(behavior_list, companies_names)
     pattern_map = normalize_patternmap(pattern_map)
     bayesnet = compute_patterns(pattern_map)
-    return bayesnet
+    return bayesnet, companies_names

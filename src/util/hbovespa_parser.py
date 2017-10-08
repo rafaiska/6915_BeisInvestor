@@ -45,7 +45,7 @@ class HBovespaParser(object):
         print("PLOTTING THE GRAPH...")  #This is here just to test the graph's plotting
         intervalinDays = 30
         allDates = []; allValues = []
-        dataToPlot = self.getGraphDataByCompany("TIM", intervalinDays)
+        dataToPlot = self.getGraphDataByCompany("INTEL", intervalinDays)
         for i in range(len(dataToPlot)):
             dataToPlot[i]['Data'] = datetime.strptime(dataToPlot[i]['Data'], "%d-%m-%Y")
         dataToPlot.sort(key=operator.itemgetter('Data'))
@@ -57,9 +57,9 @@ class HBovespaParser(object):
         plt.plot(allDates, allValues, '.r-')
         plt.xlabel("Data")
         plt.ylabel("Valor em R$")
-        plt.title("Empresa: TIM")
+        plt.title("Empresa: INTEL")
         plt.grid()
-        plt.savefig('data/TIM ' + str(intervalinDays) + '_days.png', dpi = 100)
+        plt.savefig('data/INTEL ' + str(intervalinDays) + '_days.png', dpi = 100)
         plt.show()
 
 
@@ -101,9 +101,9 @@ class HBovespaParser(object):
         while index != 145:
             value = value + line[index]
             index = index + 1
-        value = value + ',' + line[146] + line[147]
+        value = value + '.' + line[146] + line[147]
 
-        return value
+        return float(value)
 
 
     '''Usage:

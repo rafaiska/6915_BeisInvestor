@@ -3,6 +3,7 @@ import json
 from operator import itemgetter
 
 import src.agent.bayesnet_constructor as constructor
+import src.agent.findbest as findbest
 
 class BayesAnalyst(object):
     def __init__(self):
@@ -25,8 +26,11 @@ class BayesAnalyst(object):
             print('ERROR: BAD FORMAT FOR DATA JSON')
             return None
 
-        print('BUILDING BAYES NET')
-        bnet = constructor.generate_bayesnet(sorted(datajson, key=itemgetter('Data')))
+        print('GENERATING BAYES NET...')
+        bnet, companies = constructor.generate_bayesnet(sorted(datajson, key=itemgetter('Data')))
+        print('DONE!')
+        print('EVALUATING RECENT STOCK BEHAVIOR...')
+        best_to_invest = findbest.findbest(bnet, 'data/entrada.json', companies)
 
         print('ANALYSIS COMPLETED')
         elapsed_time = datetime.datetime.now() - starttime
