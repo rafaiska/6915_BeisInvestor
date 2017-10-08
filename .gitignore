@@ -107,3 +107,6 @@ ENV/
 data/*.json
 data/*.txt
 data/*.TXT
+
+# graficos plotados
+data/*.png
