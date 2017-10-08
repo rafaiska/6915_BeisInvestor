@@ -56,9 +56,9 @@ def generate_patternmap(blists, companies):
 
     for i in range(length - 1):
         pattern_string = ''
-        for company_name in blists:
+        for company_name in companies:
             pattern_string += blists[company_name][i]
-        for company_name in blists:
+        for company_name in companies:
             if blists[company_name][i + 1] == 'n':
                 continue
             if pattern_string not in patternmap[company_name].keys():
@@ -67,9 +67,9 @@ def generate_patternmap(blists, companies):
     return patternmap
 
 
-def normalize_patternmap(pattern_map):
+def normalize_patternmap(pattern_map, companies_names):
     new_pattern_map = {}
-    for company_name in pattern_map:
+    for company_name in companies_names:
         new_pattern_map[company_name] = {}
         for pattern in pattern_map[company_name]:
             if pattern.find('n') != -1:
@@ -144,6 +144,6 @@ def generate_bayesnet(hist_json):
         today_prices[entry['Empresa']] = entry['Valor']
 
     pattern_map = generate_patternmap(behavior_list, companies_names)
-    pattern_map = normalize_patternmap(pattern_map)
+    pattern_map = normalize_patternmap(pattern_map, companies_names)
     bayesnet = compute_patterns(pattern_map)
     return bayesnet, companies_names

@@ -1,0 +1,72 @@
+[
+  {
+    "Empresa": "MICROSOFT",
+    "Valor": 242.33,
+    "Data": 20171005
+  },
+  {
+    "Empresa": "MICROSOFT",
+    "Valor": 239.20,
+    "Data": 20171006
+  },
+  {
+    "Empresa": "ITAUTEC",
+    "Valor": 15.10,
+    "Data": 20171005
+  },
+  {
+    "Empresa": "ITAUTEC",
+    "Valor": 15.61,
+    "Data": 20171006
+  },
+  {
+    "Empresa": "TELEBRAS",
+    "Valor": 29.92,
+    "Data": 20171005
+  },
+  {
+    "Empresa": "TELEBRAS",
+    "Valor": 29.00,
+    "Data": 20171006
+  },
+  {
+    "Empresa": "POSITIVO",
+    "Valor": 3.40,
+    "Data": 20171005
+  },
+  {
+    "Empresa": "POSITIVO",
+    "Valor": 3.41,
+    "Data": 20171006
+  },
+  {
+    "Empresa": "FACEBOOK",
+    "Valor": 268.04,
+    "Data": 20171005
+  },
+  {
+    "Empresa": "FACEBOOK",
+    "Valor": 270.23,
+    "Data": 20171006
+  },
+  {
+    "Empresa": "ORACLE",
+    "Valor": 154.33,
+    "Data": 20171005
+  },
+  {
+    "Empresa": "ORACLE",
+    "Valor": 153.81,
+    "Data": 20171006
+  },
+  {
+    "Empresa": "INTEL",
+    "Valor": 122.82,
+    "Data": 20171005
+  },
+  {
+    "Empresa": "INTEL",
+    "Valor": 124.25,
+    "Data": 20171006
+  }
+]
