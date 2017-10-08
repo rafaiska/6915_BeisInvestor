@@ -54,7 +54,7 @@ class HBovespaParser(object):
         day = line[8] + line[9]
 
         date = year + month + day 
-        return date
+        return int(date)
 
     def getCompanyName(self, line):
         '''Returns the company name from a line (starts at pos 27, ends when whitespace is found)'''

@@ -25,7 +25,8 @@ class BayesAnalyst(object):
             print('ERROR: BAD FORMAT FOR DATA JSON')
             return None
 
-        constructor.generate_bayesnet(sorted(datajson, key=itemgetter('Data')))
+        print('BUILDING BAYES NET')
+        bnet = constructor.generate_bayesnet(sorted(datajson, key=itemgetter('Data')))
 
         print('ANALYSIS COMPLETED')
         elapsed_time = datetime.datetime.now() - starttime
