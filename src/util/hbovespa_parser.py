@@ -1,7 +1,9 @@
 import json
 import os
 import gzip
-
+import matplotlib.pyplot as plt
+import operator
+from datetime import datetime
 
 class HBovespaParser(object):
     """Parses Bovespa history file (gziped) into a json structured file"""
@@ -40,6 +42,22 @@ class HBovespaParser(object):
         cotacoes.close()
         print('OUTPUT FILE WRITTEN TO %s' % (self.outputfile))
 
+        """print("PLOTTING THE GRAPH...")  This is here just to test the graph's plotting
+        intervalinDays = 30
+        allDates = []; allValues = []
+        dataToPlot = self.getGraphDataByCompany("TIM", intervalinDays)
+        for i in range(len(dataToPlot)):
+            dataToPlot[i]['Data'] = datetime.strptime(dataToPlot[i]['Data'], "%d-%m-%Y")
+        dataToPlot.sort(key=operator.itemgetter('Data'))
+        for i in range(len(dataToPlot)):
+            allDates.append(dataToPlot[i]['Data'])
+            allValues.append(float(dataToPlot[i]['Valor'].replace(",", ".")))
+
+        plt.plot(allDates, allValues, '.r-')
+        plt.xlabel("Data")
+        plt.ylabel("Valor em R$")
+        plt.show()"""
+
     def check_json(self):
         """Checks if file already exists"""
         if os.path.isfile(self.outputfile):
@@ -53,7 +71,7 @@ class HBovespaParser(object):
         month = line[6] + line[7]
         day = line[8] + line[9]
 
-        date = year + month + day 
+        date = day + "-" + month + "-" + year
         return date
 
     def getCompanyName(self, line):
@@ -66,21 +84,21 @@ class HBovespaParser(object):
         return name
 
     def getClosingValue(self, line):
-        '''Returns the closing value from a line (starts at pos 57, ends at pos 70)'''
+        '''Returns the closing value from a line (starts at pos 136, ends at pos 145)'''
         value = ""
-        startIndex = 57
-        endIndex = 70
-        while line[startIndex] == "0":
-            startIndex = startIndex + 1
+        index = 136
+        while line[index] == "0":
+            index = index + 1
             # Case of missing values from BOVESPA data
-            if (startIndex == endIndex):
+            if (index == 145):
                 return None
 
-        while startIndex != endIndex - 2:
-            value = value + line[startIndex]
-            startIndex = startIndex + 1
-        value = value + '.' + line[startIndex + 1] + line[startIndex + 2]
-        return float(value)
+        while index != 145:
+            value = value + line[index]
+            index = index + 1
+        value = value + ',' + line[146] + line[147]
+
+        return value
 
 
     '''Usage:
@@ -103,3 +121,19 @@ class HBovespaParser(object):
         jsonFile.close()
         return graphData
 
+    def plotGraph(self, companyName, intervalinDays):  # The function to plot the graph. the call of this function was not tested yet, but it should work.
+        print("PLOTTING THE MAP...")
+        allDates = []; allValues = []
+        dataToPlot = self.getGraphDataByCompany(companyName, intervalinDays)
+        for i in range(len(dataToPlot)):
+            dataToPlot[i]['Data'] = datetime.strptime(dataToPlot[i]['Data'], "%d-%m-%Y")
+
+        dataToPlot.sort(key=operator.itemgetter('Data'))
+        for i in range(len(dataToPlot)):
+            allDates.append(dataToPlot[i]['Data'])
+            allValues.append(float(dataToPlot[i]['Valor'].replace(",", ".")))
+
+        plt.plot(allDates, allValues, '.r-')
+        plt.xlabel("Data")
+        plt.ylabel("Valor em R$")
+        plt.show()
