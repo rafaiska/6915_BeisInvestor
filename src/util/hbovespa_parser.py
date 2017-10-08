@@ -42,7 +42,7 @@ class HBovespaParser(object):
         cotacoes.close()
         print('OUTPUT FILE WRITTEN TO %s' % (self.outputfile))
 
-        """print("PLOTTING THE GRAPH...")  This is here just to test the graph's plotting
+        print("PLOTTING THE GRAPH...")  #This is here just to test the graph's plotting
         intervalinDays = 30
         allDates = []; allValues = []
         dataToPlot = self.getGraphDataByCompany("TIM", intervalinDays)
@@ -53,10 +53,15 @@ class HBovespaParser(object):
             allDates.append(dataToPlot[i]['Data'])
             allValues.append(float(dataToPlot[i]['Valor'].replace(",", ".")))
 
+        plt.figure(figsize=(13,7))
         plt.plot(allDates, allValues, '.r-')
         plt.xlabel("Data")
         plt.ylabel("Valor em R$")
-        plt.show()"""
+        plt.title("Empresa: TIM")
+        plt.grid()
+        plt.savefig('data/TIM ' + str(intervalinDays) + '_days.png', dpi = 100)
+        plt.show()
+
 
     def check_json(self):
         """Checks if file already exists"""
@@ -133,7 +138,11 @@ class HBovespaParser(object):
             allDates.append(dataToPlot[i]['Data'])
             allValues.append(float(dataToPlot[i]['Valor'].replace(",", ".")))
 
+        plt.figure(figsize=(13,7))
         plt.plot(allDates, allValues, '.r-')
         plt.xlabel("Data")
         plt.ylabel("Valor em R$")
+        plt.title("Empresa: " + companyName)
+        plt.grid()
+        plt.savefig('data/' + companyName + " " + str(intervalinDays) + '_days.png', dpi = 100)
         plt.show()
