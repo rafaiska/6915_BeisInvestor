@@ -7,10 +7,7 @@ class ResultsFrame(tkinter.Frame):
     def __init__(self, master):
         super().__init__(master=master)
         self.best_to_invest_label = tkinter.Label(master=self)
-        self.graph_label = tkinter.Label(master=self)
         self.best_to_invest_label.grid(row=0, column=0)
-        self.graph_label.grid(row=1, column=0)
-        self.graph_image = None
 
     def set_best_to_invest(self, best_to_invest):
         if best_to_invest is None:
@@ -25,14 +22,4 @@ class ResultsFrame(tkinter.Frame):
         self.plot_and_display(best_to_invest['company'])
 
     def plot_and_display(self, company_name):
-        output_path = 'data/graph.png'
-
         plotter.plot_graph(company_name)
-
-        try:
-            self.graph_image = tkinter.PhotoImage(file=output_path)
-        except tkinter.TclError:
-            self.graph_label.configure(text='ERROR: STOCK PRICE GRAPH COULD NOT BE GENERATED')
-            return
-
-        self.graph_label.configure(image=self.graph_image)

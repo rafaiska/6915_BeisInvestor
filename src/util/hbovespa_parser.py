@@ -68,10 +68,10 @@ class HBovespaParser(object):
         return name
 
     def getClosingValue(self, line):
-        '''Returns the closing value from a line (starts at pos 57, ends at pos 70)'''
+        '''Returns the closing value from a line (starts at pos 57, ends at pos 69)'''
         value = ""
         startIndex = 57
-        endIndex = 70
+        endIndex = 69
         while line[startIndex] == "0":
             startIndex = startIndex + 1
             # Case of missing values from BOVESPA data
@@ -82,6 +82,7 @@ class HBovespaParser(object):
             value = value + line[startIndex]
             startIndex = startIndex + 1
         value = value + '.' + line[startIndex + 1] + line[startIndex + 2]
+        print (value)
         return float(value)
 
     def getGraphDataByCompany(self, companyName, interval):
