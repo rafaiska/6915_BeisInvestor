@@ -15,8 +15,9 @@ def plot_graph(company_name, input_json='data/cotacoes.json', output_graph='data
     index = 0
     interval = 0 #criar func para receber o intervalo de interesse
 
-
-    inputData = json.load(input_json)
+    with open(input_json, 'r') as inputfile:
+        inputData = json.load(inputfile)
+        inputfile.close()
 
     while inputData[index]['Empresa'] != company_name:
         index += 1
@@ -25,13 +26,10 @@ def plot_graph(company_name, input_json='data/cotacoes.json', output_graph='data
         graphData.append(inputData[index])
         interval += 1
 
-    jsonFile.close()
-
-
     print("PLOTTING THE MAP...")    
     
     for i in range(len(graphData)):
-        graphData[i]['Data'] = datatime.strptime(graphData[i]['Data'], "%d-%m-%Y")
+        graphData[i]['Data'] = datetime.strptime(graphData[i]['Data'], "%d-%m-%Y")
 
     graphData.sort(key=operator.itemgetter('Data'))
 
