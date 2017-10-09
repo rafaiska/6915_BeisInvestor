@@ -26,10 +26,14 @@ class ResultsFrame(tkinter.Frame):
 
     def plot_and_display(self, company_name):
         output_path = 'data/graph.png'
-        plotter.plot_graph(company_name, output_graph=output_path)
+        input_path = 'data/cotacoes.json'
+
+        plotter.plot_graph(company_name, input_json=input_path, output_graph=output_path)
+
         try:
             self.graph_image = tkinter.PhotoImage(file=output_path)
         except tkinter.TclError:
             self.graph_label.configure(text='ERROR: STOCK PRICE GRAPH COULD NOT BE GENERATED')
             return
+
         self.graph_label.configure(image=self.graph_image)
