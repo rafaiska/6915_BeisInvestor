@@ -20,7 +20,7 @@ class ResultsFrame(tkinter.Frame):
             beststr += best_to_invest['company']
             beststr += '\n\tProbability of closing high (> 2%): {:.2f}'.format(best_to_invest['u_chance'])
             beststr += '\n\tProbability of closing stable (-2% <= p <= 2%): {:.2f}'.format(best_to_invest['s_chance'])
-            beststr += '\n\tProbability of closing down (< -2%): {:.2f}'.format(best_to_invest['d_chance'])
+            beststr += '\n\tProbability of closing low (< -2%): {:.2f}'.format(best_to_invest['d_chance'])
         self.best_to_invest_label.configure(text=beststr)
         self.plot_and_display(best_to_invest['company'])
 
