@@ -110,3 +110,12 @@ data/*.TXT
 
 # graficos plotados
 data/*.png
+
+# arquivos auxiliares do latex
+parte_escrita/*.aux
+parte_escrita/*.nav
+parte_escrita/*.out
+parte_escrita/*.pdf
+parte_escrita/*.snm
+parte_escrita/*.gz
+parte_escrita/*.toc
