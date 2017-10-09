@@ -25,7 +25,7 @@ class ResultsFrame(tkinter.Frame):
         self.plot_and_display(best_to_invest['company'])
 
     def plot_and_display(self, company_name):
-        output_path = 'data/graph.png'
+        output_path = 'data/plot.png'
 
         plotter.plot_graph(company_name)
 
