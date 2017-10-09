@@ -41,28 +41,7 @@ class HBovespaParser(object):
         json.dump(listaBovespa, cotacoes, indent=4)
         cotacoes.close()
         print('OUTPUT FILE WRITTEN TO %s' % (self.outputfile))
-
-        print("PLOTTING THE GRAPH...")  #This is here just to test the graph's plotting
-        intervalinDays = 30
-        allDates = []; allValues = []
-        dataToPlot = self.getGraphDataByCompany("INTEL", intervalinDays)
-        for i in range(len(dataToPlot)):
-            dataToPlot[i]['Data'] = datetime.strptime(dataToPlot[i]['Data'], "%d-%m-%Y")
-        dataToPlot.sort(key=operator.itemgetter('Data'))
-        for i in range(len(dataToPlot)):
-            allDates.append(dataToPlot[i]['Data'])
-            allValues.append(dataToPlot[i]['Valor'])
-
-        plt.figure(figsize=(13,7))
-        plt.plot(allDates, allValues, '.r-')
-        plt.xlabel("Data")
-        plt.ylabel("Valor em R$")
-        plt.title("Empresa: INTEL")
-        plt.grid()
-        plt.savefig('data/INTEL ' + str(intervalinDays) + '_days.png', dpi = 100)
-        plt.show()
-
-
+        
     def check_json(self):
         """Checks if file already exists"""
         if os.path.isfile(self.outputfile):

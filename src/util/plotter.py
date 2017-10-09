@@ -5,9 +5,6 @@ import operator
 from datetime import datetime
 
 def plot_graph(company_name, input_json='data/cotacoes.json', output_graph='data/plot.png'):
-    """Plots stock price variation graph into image file for displaying"""
-    # TODO: Funcao para plotar grafico aqui
-
     allDates = []
     allValues = []
     graphData = []
@@ -21,9 +18,13 @@ def plot_graph(company_name, input_json='data/cotacoes.json', output_graph='data
     while inputData[index]['Empresa'] != company_name:
         index += 1
 
-    while inputData[index]['Empresa'] == company_name:
+    limit = len(inputData)
+    while (inputData[index]['Empresa'] == company_name):
         graphData.append(inputData[index])
         index += 1
+
+        if (index + 1 == limit):
+            break
 
     print("PLOTTING THE MAP...")    
     
