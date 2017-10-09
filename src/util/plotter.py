@@ -46,5 +46,5 @@ def plot_graph(company_name, input_json='data/cotacoes.json', output_graph='data
     plt.title("Empresa: " + company_name)
     plt.grid()
     #plt.savefig('data/' + company_name + " " + str(interval) + '_days.png', dpi=100)
-    plt.savefig('data/graph.png', dpi=100)
+    plt.savefig(output_graph, dpi=100)
     plt.show()

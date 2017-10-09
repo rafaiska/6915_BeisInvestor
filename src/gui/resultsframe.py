@@ -26,9 +26,8 @@ class ResultsFrame(tkinter.Frame):
 
     def plot_and_display(self, company_name):
         output_path = 'data/graph.png'
-        input_path = 'data/cotacoes.json'
 
-        plotter.plot_graph(company_name, input_json=input_path, output_graph=output_path)
+        plotter.plot_graph(company_name)
 
         try:
             self.graph_image = tkinter.PhotoImage(file=output_path)

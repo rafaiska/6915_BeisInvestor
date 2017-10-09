@@ -107,7 +107,6 @@ class HBovespaParser(object):
 
     '''
     def getGraphDataByCompany(self, companyName, interval):
-        '''Gets data from json file by company name. Interval format is number of days.'''
         jsonFile = open("data/cotacoes.json", 'r')
         data = json.load(jsonFile)
         index = 0
