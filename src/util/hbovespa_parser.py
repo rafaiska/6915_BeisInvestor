@@ -105,10 +105,6 @@ class HBovespaParser(object):
         value = value + '.' + line[startIndex + 1] + line[startIndex + 2]
         return float(value)
 
-
-    '''Usage:
-        intervalInDays = 30
-        dataToPlot = parser.getGraphDataByCompany("TIM", intervalInDays)
     '''
     def getGraphDataByCompany(self, companyName, interval):
         '''Gets data from json file by company name. Interval format is number of days.'''
@@ -146,3 +142,4 @@ class HBovespaParser(object):
         plt.grid()
         plt.savefig('data/' + companyName + " " + str(intervalinDays) + '_days.png', dpi = 100)
         plt.show()
+    '''
